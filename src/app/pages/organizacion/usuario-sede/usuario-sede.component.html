@@ -1,0 +1,150 @@
+<div class=" min-h-screen">
+    <div class="max-w-full mx-auto">
+        <!-- Header -->
+        <div class="mb-6 card">
+            <div class="font-bold text-xl text-surface">Registrar Usuario-Sede</div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Formulario de Registro -->
+            <div class="lg:col-span-1">
+                <div class="card bg-white shadow-lg rounded-lg p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-primary-100 p-3 rounded-full mr-3">
+                            <i class="pi pi-user-edit text-primary-600 text-lg"></i>
+                        </div>
+                        <h2 class="text-xl font-semibold">Registrar Usuario-Sede</h2>
+                    </div>
+                    
+                    <form class="space-y-4">
+                        <!-- Combo Usuario -->
+                        <div>
+                            <label class="block text-surface-500 dark:text-surface-400 text-sm font-semibold mb-2">
+                                Usuario*
+                            </label>
+                            <p-dropdown 
+                                [options]="usuarios" 
+                                optionLabel="nombre"
+                                optionValue="id"
+                                placeholder="Selecciona un usuario"
+                                class="w-full h-10 bg-surface-50 dark:bg-surface-900"
+                            ></p-dropdown>
+                        </div>
+                        <!-- Combo Sede -->
+                        <div>
+                            <label class="block text-surface-500 dark:text-surface-400 text-sm font-semibold mb-2">
+                                Sede*
+                            </label>
+                            <p-dropdown 
+                                [options]="sedes" 
+                                optionLabel="nombre"
+                                optionValue="id"
+                                placeholder="Selecciona una sede"
+                                class="w-full h-10 bg-surface-50 dark:bg-surface-900"
+                            ></p-dropdown>
+                        </div>
+                        <!-- Fecha-Hora actual -->
+                        <div>
+                            <label class="block text-surface-500 dark:text-surface-400 text-sm font-semibold mb-2">
+                                Fecha de creación*
+                            </label>
+                            <input 
+                                pInputText 
+                                type="text"
+                                [value]="fechaActual | date:'dd/MM/yyyy HH:mm'" 
+                                class="w-full h-10 bg-surface-50 dark:bg-surface-900" 
+                                readonly
+                            />
+                        </div>
+                        <!-- Observación -->
+                        <div>
+                            <label class="block text-surface-500 dark:text-surface-400 text-sm font-semibold mb-2">
+                                Observación
+                            </label>
+                            <textarea 
+                                pInputTextarea 
+                                rows="5" 
+                                class="w-full bg-surface-100 dark:bg-surface-700 text-surface-500 dark:text-surface-100 p-2"
+                                placeholder="Observaciones..."
+                            ></textarea>
+                        </div>
+                        <!-- Botón -->
+                        <div class="pt-4">
+                            <p-button 
+                                label="Registrar" 
+                                icon="pi pi-save"
+                                [fluid]="true"
+                                severity="primary"
+                                class="w-full"
+                            ></p-button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Tabla de Usuario-Sede -->
+            <div class="lg:col-span-2">
+                <div class="card bg-white shadow-lg rounded-lg">
+                    <div class="flex items-center justify-between p-6 border-b border-gray-200">
+                        <div class="flex items-center">
+                            <div class="bg-primary-100 p-3 rounded-full mr-3">
+                                <i class="pi pi-users text-primary-600 text-lg"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-xl font-semibold">Usuarios por Sede</h2>
+                                <p class="text-surface-500 dark:text-surface-400 text-sm">Total: {{usuarioSedeList.length}} registros</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p-table 
+                            [value]="usuarioSedeList"
+                            [paginator]="true"
+                            [rows]="10"
+                            styleClass="p-datatable-gridlines"
+                            [tableStyle]="{'min-width': '40rem'}"
+                        >
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Usuario</th>
+                                    <th>Sede</th>
+                                    <th>Observación</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-row>
+                                <tr>
+                                    <td>{{row.usuario}}</td>
+                                    <td>{{row.sede}}</td>
+                                    <td>{{row.observacion}}</td>
+                                    <td>
+                                        <p-tag [value]="row.estado" [severity]="row.estado === 'Activo' ? 'success' : 'danger'"></p-tag>
+                                    </td>
+                                    <td>
+                                        <div class="flex items-center space-x-2">
+                                            <p-button icon="pi pi-pencil" severity="info" [outlined]="true" [rounded]="true" size="small" pTooltip="Editar"></p-button>
+                                            <p-button icon="pi pi-trash" severity="danger" [outlined]="true" [rounded]="true" size="small" pTooltip="Eliminar"></p-button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="5" class="text-center p-8">
+                                        <div class="flex flex-col items-center">
+                                            <i class="pi pi-inbox text-gray-400 text-4xl mb-4"></i>
+                                            <h3 class="text-lg font-medium text-gray-900 mb-2">No hay registros</h3>
+                                            <p class="text-gray-500">Comienza agregando un usuario-sede</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
