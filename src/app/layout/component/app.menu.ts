@@ -67,7 +67,7 @@ export class AppMenu implements OnInit {
                     {
                         label: 'Sede - Centro Costo',
                         icon: 'pi pi-money-bill',
-                        routerLink: ['/orgnizacion/sede-centro-costo']
+                        routerLink: ['/orgnizacion/sede-ccosto']
                     }
                 ]
             },
